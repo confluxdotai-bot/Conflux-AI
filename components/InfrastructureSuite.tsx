@@ -2,11 +2,11 @@ import React from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Bot, Globe, BarChart3, ChevronRight } from 'lucide-react';
 
-const SuiteCard: React.FC<{ 
-  title: string; 
-  description: string; 
-  icon: React.ReactNode; 
-  index: number 
+const SuiteCard: React.FC<{
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  index: number
 }> = ({ title, description, icon, index }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -38,7 +38,7 @@ const SuiteCard: React.FC<{
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -55,7 +55,7 @@ const SuiteCard: React.FC<{
           {description}
         </p>
 
-        <button 
+        <button
           onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           className="flex items-center text-blue-400 text-[10px] font-orbitron tracking-[0.2em] uppercase group-hover:gap-4 transition-all bg-transparent border-none cursor-pointer"
         >
@@ -94,7 +94,7 @@ const InfrastructureSuite: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
           className="flex items-center gap-4 mb-4"
         >
           <div className="h-[1px] w-12 bg-blue-600" />

@@ -6,7 +6,6 @@ import KineticSculpture from './KineticSculpture.tsx';
 const Hero: React.FC = () => {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   const scrollToSection = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
@@ -20,9 +19,9 @@ const Hero: React.FC = () => {
         <KineticSculpture />
       </div>
 
-      <motion.div 
-        style={{ y: y1, opacity }}
-        className="relative z-10 text-center max-w-5xl pointer-events-none"
+      <motion.div
+        style={{ y: y1 }}
+        className="relative z-10 text-center max-w-5xl"
       >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -32,8 +31,8 @@ const Hero: React.FC = () => {
         >
           <span className="text-[7px] md:text-[10px] font-orbitron tracking-[0.2em] md:tracking-[0.3em] text-blue-400 uppercase">Automated Digital Hegemony</span>
         </motion.div>
-        
-        <motion.h1 
+
+        <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
@@ -43,7 +42,7 @@ const Hero: React.FC = () => {
           <span className="text-gradient">UNIFIED</span> BY INTEL
         </motion.h1>
 
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
@@ -52,7 +51,7 @@ const Hero: React.FC = () => {
           We build the websites, AI-chatbots, and high-velocity ad systems that power India's fastest-growing brands.
         </motion.p>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
@@ -65,7 +64,7 @@ const Hero: React.FC = () => {
             <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
             INITIATE GROWTH
           </button>
-          <button 
+          <button
             onClick={(e) => scrollToSection(e, 'infrastructure')}
             className="w-full sm:w-auto px-8 md:px-10 py-4 font-orbitron text-[9px] md:text-xs tracking-[0.2em] glass text-white hover:bg-white/5 transition-colors border border-white/10"
           >
@@ -75,7 +74,7 @@ const Hero: React.FC = () => {
       </motion.div>
 
       {/* Mouse scroll indicator */}
-      <motion.div 
+      <motion.div
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40 hidden md:flex"
