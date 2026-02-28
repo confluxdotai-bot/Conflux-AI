@@ -36,17 +36,17 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="font-orbitron text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight mb-6 md:mb-8"
+          className="font-orbitron text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white leading-tight mb-6 md:mb-8 tracking-tighter"
         >
           YOUR BUSINESS,<br />
-          <span className="text-gradient">UNIFIED</span> BY INTEL
+          <span className="text-gradient drop-shadow-[0_0_25px_rgba(59,130,246,0.6)]">UNIFIED</span> BY INTEL
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="text-slate-400 text-xs md:text-xl max-w-2xl mx-auto mb-10 md:mb-12 font-light leading-relaxed pointer-events-auto px-4 md:px-0"
+          className="text-slate-200 text-sm md:text-2xl max-w-3xl mx-auto mb-10 md:mb-12 font-medium leading-relaxed pointer-events-auto px-4 md:px-0 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
         >
           We build the websites, AI-chatbots, and high-velocity ad systems that power India's fastest-growing brands.
         </motion.p>
@@ -59,7 +59,7 @@ const Hero: React.FC = () => {
         >
           <button
             onClick={(e) => scrollToSection(e, 'contact')}
-            className="w-full sm:w-auto group relative px-8 md:px-10 py-4 font-orbitron text-[9px] md:text-xs tracking-[0.2em] bg-blue-600 text-white rounded-sm overflow-hidden hover:scale-105 transition-transform"
+            className="w-full sm:w-auto group relative px-8 md:px-10 py-4 font-orbitron text-[9px] md:text-xs tracking-[0.2em] bg-blue-600 text-white rounded-sm overflow-hidden hover:scale-105 transition-all glow-blue hover:shadow-[0_0_40px_rgba(59,130,246,0.8)]"
           >
             <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
             INITIATE GROWTH
