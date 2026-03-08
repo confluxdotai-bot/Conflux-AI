@@ -1,70 +1,107 @@
 import React from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Bot, Globe, BarChart3, ChevronRight } from 'lucide-react';
+import { Bot, Globe, BarChart3, ChevronRight, Cpu, Shield, Zap } from 'lucide-react';
 
 const SuiteCard: React.FC<{
   title: string;
+  subtitle: string;
   description: string;
   icon: React.ReactNode;
-  index: number
-}> = ({ title, description, icon, index }) => {
+  features: string[];
+  index: number;
+  accentColor: string;
+}> = ({ title, subtitle, description, icon, features, index, accentColor }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-
   const mouseXSpring = useSpring(x);
   const mouseYSpring = useSpring(y);
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["8deg", "-8deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-8deg", "8deg"]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    y.set(yPct);
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
   };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
+  const handleMouseLeave = () => { x.set(0); y.set(0); };
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.6, delay: index * 0.12 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      className="group relative p-8 glass border border-white/5 rounded-2xl flex flex-col h-full hover:border-blue-500/40 transition-colors duration-500 overflow-hidden cursor-default perspective-2000"
+      className="group relative flex flex-col h-full rounded-2xl cursor-default overflow-hidden"
+      role="article"
     >
-      <div style={{ transform: "translateZ(50px)" }} className="relative z-10">
-        <div className="mb-8 p-4 bg-blue-500/10 rounded-xl w-fit group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 text-blue-400 shadow-lg">
+      {/* Background */}
+      <div
+        className="absolute inset-0 rounded-2xl transition-all duration-500"
+        style={{
+          background: 'linear-gradient(135deg, rgba(5,15,31,0.9) 0%, rgba(2,12,27,0.95) 100%)',
+          border: '1px solid rgba(14,165,233,0.1)',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.4)'
+        }}
+      />
+      <div
+        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"
+        style={{
+          background: `linear-gradient(135deg, ${accentColor}08 0%, transparent 50%)`,
+          border: `1px solid ${accentColor}30`
+        }}
+      />
+
+      {/* Number watermark */}
+      <div className="absolute top-4 right-5 font-orbitron font-black select-none pointer-events-none"
+        style={{ fontSize: '5rem', color: 'rgba(14,165,233,0.04)', lineHeight: 1 }}>
+        0{index + 1}
+      </div>
+
+      <div className="relative z-10 p-7 md:p-8 flex flex-col h-full" style={{ transform: "translateZ(30px)" }}>
+        {/* Icon */}
+        <div
+          className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110"
+          style={{
+            background: `${accentColor}15`,
+            border: `1px solid ${accentColor}25`,
+            color: accentColor,
+            boxShadow: `0 8px 24px ${accentColor}20`
+          }}
+        >
           {icon}
         </div>
 
-        <h3 className="font-orbitron text-xl font-bold text-white mb-4 tracking-tight">{title}</h3>
-        <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-grow">
-          {description}
-        </p>
+        {/* Title */}
+        <div className="mb-4">
+          <p className="font-orbitron text-[9px] tracking-[0.3em] mb-1.5" style={{ color: accentColor }}>
+            {subtitle}
+          </p>
+          <h3 className="font-orbitron text-lg md:text-xl font-bold text-white tracking-tight">{title}</h3>
+        </div>
+
+        <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">{description}</p>
+
+        {/* Features */}
+        <ul className="space-y-2 mb-7">
+          {features.map((f, i) => (
+            <li key={i} className="flex items-center gap-2.5 text-sm text-slate-300">
+              <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: accentColor }} />
+              {f}
+            </li>
+          ))}
+        </ul>
 
         <button
           onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-          className="flex items-center text-blue-400 text-[10px] font-orbitron tracking-[0.2em] uppercase group-hover:gap-4 transition-all bg-transparent border-none cursor-pointer"
+          className="flex items-center gap-2 font-orbitron text-[10px] tracking-[0.25em] uppercase transition-all duration-300 bg-transparent border-none"
+          style={{ color: accentColor }}
         >
-          Access Protocol <ChevronRight className="w-4 h-4" />
+          Start Today <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
         </button>
       </div>
-
-      <div className="absolute top-[-20px] right-[-20px] text-8xl font-black text-white/[0.03] font-orbitron select-none">0{index + 1}</div>
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/0 via-transparent to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
     </motion.div>
   );
 };
@@ -72,44 +109,92 @@ const SuiteCard: React.FC<{
 const InfrastructureSuite: React.FC = () => {
   const services = [
     {
-      title: "AUTONOMOUS BOTS",
-      description: "Neural-link conversational agents built on localized LLM clusters. Capable of handling 98% of complex customer queries without latency.",
-      icon: <Bot className="w-8 h-8" />
+      title: "AI Automation & Chatbots",
+      subtitle: "Intelligent Automation",
+      description: "End-to-end AI systems that handle customer queries, lead qualification, and order processing automatically — 24/7, without human intervention.",
+      icon: <Bot className="w-7 h-7" />,
+      features: ["WhatsApp & multi-channel bots", "CRM integration", "Sub-200ms response time"],
+      accentColor: "#0ea5e9"
     },
     {
-      title: "HIGH-CONVERSION WEB",
-      description: "Sub-second digital storefronts engineered with edge-compute precision. Every pixel optimized for zero-friction user journeys.",
-      icon: <Globe className="w-8 h-8" />
+      title: "High-Conversion Websites",
+      subtitle: "Digital Infrastructure",
+      description: "Sub-second-loading digital storefronts engineered for zero-friction user journeys. Every UI decision backed by conversion data and performance benchmarks.",
+      icon: <Globe className="w-7 h-7" />,
+      features: ["Mobile-first design", "SEO optimised", "E-commerce ready"],
+      accentColor: "#06b6d4"
     },
     {
-      title: "PRECISION AD STACKS",
-      description: "Real-time algorithmic bidding and creative optimization. Deploy ad capital with clinical precision across fragmented global markets.",
-      icon: <BarChart3 className="w-8 h-8" />
+      title: "Precision Ad Systems",
+      subtitle: "Growth Engines",
+      description: "AI-driven ad campaign management that eliminates wasted spend. We deploy your ad budget across channels with surgical accuracy to maximise ROI.",
+      icon: <BarChart3 className="w-7 h-7" />,
+      features: ["Real-time bidding AI", "Multi-platform coverage", "Transparent reporting"],
+      accentColor: "#818cf8"
     }
   ];
 
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="mb-20">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          className="flex items-center gap-4 mb-4"
+      {/* Header */}
+      <div className="mb-14 md:mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            className="section-tag mb-4"
+          >
+            Our Services
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ delay: 0.1 }}
+            className="font-orbitron text-3xl md:text-5xl lg:text-6xl font-black text-white leading-[1.05] tracking-tight"
+          >
+            WHAT WE <br className="hidden md:block" />
+            <span className="text-gradient">BUILD</span> FOR YOU
+          </motion.h2>
+        </div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="text-slate-400 text-sm max-w-xs leading-relaxed"
         >
-          <div className="h-[1px] w-12 bg-blue-600" />
-          <span className="font-orbitron text-[10px] tracking-[0.4em] text-blue-400 uppercase">The Infrastructure Suite</span>
-        </motion.div>
-        <h2 className="font-orbitron text-4xl md:text-6xl font-black text-white max-w-2xl leading-[1.1]">
-          DIGITAL <span className="text-gradient">HEGEMONY</span><br />BY DESIGN
-        </h2>
+          Three core service pillars, one unified growth strategy for your business.
+        </motion.p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6" style={{ perspective: '1200px' }}>
         {services.map((s, i) => (
           <SuiteCard key={i} index={i} {...s} />
         ))}
       </div>
+
+      {/* Bottom trust strip */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+        className="mt-12 md:mt-16 flex flex-wrap justify-center gap-8 md:gap-16 py-8 px-6 rounded-2xl"
+        style={{ background: 'rgba(14,165,233,0.03)', border: '1px solid rgba(14,165,233,0.08)' }}
+      >
+        {[
+          { icon: <Shield size={14} />, text: "Enterprise-grade Security" },
+          { icon: <Zap size={14} />, text: "Rapid Deployment" },
+          { icon: <Cpu size={14} />, text: "AI-Native Architecture" },
+        ].map((item, i) => (
+          <div key={i} className="flex items-center gap-2.5 text-slate-500 text-xs">
+            <span style={{ color: '#0ea5e9' }}>{item.icon}</span>
+            {item.text}
+          </div>
+        ))}
+      </motion.div>
     </div>
   );
 };

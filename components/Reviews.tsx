@@ -1,51 +1,110 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star, Quote } from 'lucide-react';
+import { Star, Quote, BadgeCheck, MapPin } from 'lucide-react';
 
-const ReviewCard: React.FC<{
+interface Review {
   name: string;
+  initials: string;
   location: string;
+  country: string;
+  flag: string;
   business: string;
+  role: string;
   rating: number;
   content: string;
+  highlight: string;
+  avatarColor: string;
   isFeatured?: boolean;
-}> = ({ name, location, business, rating, content, isFeatured }) => (
+  date: string;
+}
+
+const ReviewCard: React.FC<{ review: Review; index: number }> = ({ review, index }) => (
   <motion.div
-    initial={{ opacity: 0, scale: 0.95 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    viewport={{ once: true }}
-    whileHover={{ y: -5 }}
-    className={`relative p-6 md:p-8 glass border ${isFeatured ? 'border-blue-500/50 glow-blue bg-blue-500/5' : 'border-white/5'} rounded-2xl flex flex-col h-full transition-all duration-300`}
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.15 }}
+    transition={{ duration: 0.6, delay: index * 0.12 }}
+    whileHover={{ y: -4, transition: { duration: 0.25 } }}
+    className="relative flex flex-col h-full rounded-2xl overflow-hidden"
+    style={{
+      background: review.isFeatured
+        ? 'linear-gradient(135deg, rgba(14,165,233,0.1) 0%, rgba(5,15,31,0.85) 50%, rgba(6,182,212,0.06) 100%)'
+        : 'rgba(5,15,31,0.7)',
+      border: review.isFeatured
+        ? '1px solid rgba(14,165,233,0.35)'
+        : '1px solid rgba(255,255,255,0.07)',
+      backdropFilter: 'blur(20px)',
+      boxShadow: review.isFeatured
+        ? '0 20px 60px rgba(14,165,233,0.15), inset 0 1px 0 rgba(255,255,255,0.06)'
+        : '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)'
+    }}
   >
-    <div className="absolute top-6 right-8 text-blue-500/10">
-      <Quote size={32} />
-    </div>
-
-    <div className="flex gap-1 mb-4">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star
-          key={i}
-          size={12}
-          className={`${i < rating ? 'text-blue-400 fill-blue-400' : 'text-slate-600'} ${isFeatured && i < rating ? 'drop-shadow-[0_0_8px_rgba(96,165,250,0.8)]' : ''}`}
-        />
-      ))}
-    </div>
-
-    <p className="text-slate-300 text-sm leading-relaxed mb-6 italic flex-grow">
-      "{content}"
-    </p>
-
-    <div className="flex items-center gap-4 border-t border-white/5 pt-6">
-      <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex-shrink-0 flex items-center justify-center font-orbitron text-[9px] md:text-[10px] ${isFeatured ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]' : 'bg-slate-800 text-slate-400'}`}>
-        {name.split(' ').map(n => n[0]).join('')}
+    {/* Featured badge */}
+    {review.isFeatured && (
+      <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full"
+        style={{ background: 'rgba(14,165,233,0.15)', border: '1px solid rgba(14,165,233,0.3)' }}>
+        <BadgeCheck size={10} style={{ color: '#0ea5e9' }} />
+        <span className="font-orbitron text-[8px] tracking-widest uppercase" style={{ color: '#0ea5e9' }}>Verified</span>
       </div>
-      <div className="min-w-0">
-        <h4 className="text-white font-orbitron text-[10px] md:text-xs tracking-wider truncate">{name}</h4>
-        <p className="text-blue-400 text-[8px] md:text-[9px] font-orbitron tracking-widest uppercase truncate">{business}</p>
-        <div className="flex items-center gap-2 mt-1">
-           <span className="text-[8px] md:text-[9px] text-slate-500 uppercase tracking-widest">{location}</span>
-           <div className="w-3 h-2 bg-gradient-to-r from-orange-400 via-white to-green-600 rounded-[1px] opacity-70" />
+    )}
+
+    <div className="p-6 md:p-8 flex flex-col h-full">
+      {/* Stars + Quote */}
+      <div className="flex items-start justify-between mb-5">
+        <div className="flex gap-1">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star
+              key={i}
+              size={13}
+              className={i < review.rating
+                ? (review.isFeatured ? 'fill-amber-400 text-amber-400' : 'fill-sky-400 text-sky-400')
+                : 'text-slate-700'}
+            />
+          ))}
+        </div>
+        <Quote size={20} style={{ color: 'rgba(14,165,233,0.15)', flexShrink: 0 }} />
+      </div>
+
+      {/* Highlight stat */}
+      <div className="mb-4 px-3 py-2 rounded-lg inline-block"
+        style={{ background: 'rgba(14,165,233,0.08)', border: '1px solid rgba(14,165,233,0.12)' }}>
+        <span className="font-orbitron text-[10px] tracking-wider" style={{ color: '#06b6d4' }}>{review.highlight}</span>
+      </div>
+
+      {/* Review content */}
+      <p className="text-slate-300 text-sm leading-relaxed flex-grow mb-6" style={{ fontStyle: 'normal' }}>
+        "{review.content}"
+      </p>
+
+      {/* Reviewer info */}
+      <div className="flex items-center gap-4 pt-5" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div
+          className="w-11 h-11 rounded-full flex-shrink-0 flex items-center justify-center font-orbitron text-[11px] font-bold text-white"
+          style={{
+            background: review.avatarColor,
+            boxShadow: `0 0 16px ${review.isFeatured ? 'rgba(14,165,233,0.4)' : 'rgba(0,0,0,0.3)'}`
+          }}
+        >
+          {review.initials}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-0.5">
+            <h4 className="text-white font-semibold text-sm truncate">{review.name}</h4>
+            <BadgeCheck size={13} style={{ color: '#0ea5e9', flexShrink: 0 }} />
+            {!review.isFeatured && (
+              <span className="hidden sm:inline font-orbitron text-[8px] tracking-widest" style={{ color: 'rgba(14,165,233,0.5)' }}>VERIFIED</span>
+            )}
+          </div>
+          <p className="text-sky-400 text-xs font-medium truncate">{review.business}</p>
+          <div className="flex items-center gap-1.5 mt-1">
+            <MapPin size={9} className="text-slate-600 flex-shrink-0" />
+            <span className="text-[10px] text-slate-500 truncate">{review.location}</span>
+            <span className="text-sm">{review.flag}</span>
+          </div>
+        </div>
+        <div className="hidden sm:block text-right flex-shrink-0">
+          <span className="text-[9px] text-slate-600">{review.date}</span>
         </div>
       </div>
     </div>
@@ -53,74 +112,120 @@ const ReviewCard: React.FC<{
 );
 
 const Reviews: React.FC = () => {
-  const testimonials = [
+  const testimonials: Review[] = [
     {
       name: "Rajesh Varma",
-      location: "Surat, Gujarat",
+      initials: "RV",
+      location: "Surat, Gujarat, India",
+      country: "India",
+      flag: "🇮🇳",
       business: "Varma Silk Mills",
+      role: "Managing Director",
       rating: 5,
-      content: "As a small manufacturing unit, managing customer queries on WhatsApp was a nightmare. Conflux AI's autonomous bot handled our entire order tracking automatically. My sales team now focuses only on high-value clients. Best investment this year.",
-      isFeatured: false
+      content: "As a textile manufacturer, managing customer queries on WhatsApp was overwhelming our team. Conflux AI's automation bot handles our entire order tracking pipeline. My sales team now focuses only on high-value clients. ROI was visible within the first month.",
+      highlight: "📈 3x Sales Efficiency",
+      avatarColor: "linear-gradient(135deg, #0369a1, #0ea5e9)",
+      isFeatured: false,
+      date: "Feb 2025"
     },
     {
       name: "Anjali Gupta",
-      location: "Jaipur, Rajasthan",
-      business: "The Craft Soul",
+      initials: "AG",
+      location: "Jaipur, Rajasthan, India",
+      country: "India",
+      flag: "🇮🇳",
+      business: "The Craft Soul — D2C Brand",
+      role: "Founder & CEO",
       rating: 5,
-      content: "We were struggling to scale our D2C brand across India. Conflux built a website that loads instantly even on poor mobile networks. Our conversion rates jumped by 150% in the first month. They truly understand the Indian market dynamics.",
-      isFeatured: true
+      content: "We were struggling to scale our D2C brand across India. Conflux built a website that loads instantly even on 4G mobile networks. Our conversion rates jumped by 150% in the first month. They truly understand what Indian consumers need and how to reach them.",
+      highlight: "🚀 +150% Conversions",
+      avatarColor: "linear-gradient(135deg, #7c3aed, #6366f1)",
+      isFeatured: true,
+      date: "Jan 2025"
     },
     {
       name: "Sandeep Deshmukh",
-      location: "Pune, Maharashtra",
+      initials: "SD",
+      location: "Pune, Maharashtra, India",
+      country: "India",
+      flag: "🇮🇳",
       business: "Deshmukh Agro-Tech",
+      role: "Co-Founder",
       rating: 5,
-      content: "Their Precision Ad Stacks saved our business. We were wasting lakhs on ineffective ads. Conflux optimized our spend using AI, and we reached farmers across 4 states with 40% less cost. Clinical efficiency!",
-      isFeatured: false
+      content: "Their Precision Ad System saved our business. We were wasting lakhs on ineffective campaigns. Conflux optimised our ad spend using AI, and we reached farmers across 4 states with 40% lower cost per lead. Clinical efficiency — that's the only way to describe it.",
+      highlight: "💰 40% Lower Ad Cost",
+      avatarColor: "linear-gradient(135deg, #0e7490, #06b6d4)",
+      isFeatured: false,
+      date: "Mar 2025"
     }
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-0">
-      <div className="text-center mb-12 md:mb-20">
+    <div className="max-w-7xl mx-auto">
+      {/* Header */}
+      <div className="text-center mb-14 md:mb-20">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex items-center justify-center gap-4 mb-4"
+          className="section-tag justify-center mb-4"
         >
-          <div className="h-[1px] w-6 md:w-8 bg-blue-500" />
-          <span className="font-orbitron text-[8px] md:text-[10px] tracking-[0.4em] text-blue-500 uppercase">Partner Testimonials</span>
-          <div className="h-[1px] w-6 md:w-8 bg-blue-500" />
+          Client Results
         </motion.div>
-        <h2 className="font-orbitron text-2xl md:text-5xl font-black text-white mb-4 md:mb-6">
-          PROVEN <span className="text-gradient">IMPACT</span>
-        </h2>
-        <p className="text-slate-500 text-[10px] md:text-sm max-w-xl mx-auto font-light px-4">
-          Real results from Indian MSMEs and growing startups powered by Conflux Infrastructure.
-        </p>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="font-orbitron text-3xl md:text-5xl font-black text-white mb-4"
+        >
+          PROVEN <span className="text-gradient">RESULTS</span>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="text-slate-400 text-sm max-w-xl mx-auto px-4 leading-relaxed"
+        >
+          Real impact from real businesses — Indian MSMEs and startups powered by Conflux AI infrastructure.
+        </motion.p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+      {/* Review Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
         {testimonials.map((t, i) => (
-          <ReviewCard key={i} {...t} />
+          <ReviewCard key={i} review={t} index={i} />
         ))}
       </div>
 
-      <div className="mt-12 md:mt-20 py-8 md:py-10 border-t border-white/5 flex flex-wrap justify-center gap-8 md:gap-24">
-        <div className="text-center">
-            <div className="text-white font-orbitron text-base md:text-xl font-bold mb-1">4.9/5</div>
-            <div className="text-[7px] md:text-[8px] text-slate-500 tracking-[0.3em] uppercase">Trust Score</div>
+      {/* Trust Stats Bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+        className="mt-14 md:mt-20 py-8 md:py-10 rounded-2xl"
+        style={{
+          background: 'rgba(14,165,233,0.04)',
+          border: '1px solid rgba(14,165,233,0.1)'
+        }}
+      >
+        <div className="flex flex-wrap justify-around gap-8 px-6">
+          {[
+            { value: '4.7 / 5', label: 'Average Client Score', icon: '⭐' },
+            { value: '60+', label: 'Businesses Powered', icon: '🏢' },
+            { value: '₹100k+', label: 'Revenue Managed', icon: '📊' },
+            { value: '< 24h', label: 'Onboarding Time', icon: '⚡' },
+          ].map((stat, i) => (
+            <div key={i} className="text-center">
+              <div className="text-xl md:text-2xl mb-1">{stat.icon}</div>
+              <div className="font-orbitron font-bold text-white text-base md:text-xl mb-1">{stat.value}</div>
+              <div className="text-[9px] md:text-[10px] text-slate-500 tracking-[0.25em] uppercase">{stat.label}</div>
+            </div>
+          ))}
         </div>
-        <div className="text-center">
-            <div className="text-white font-orbitron text-base md:text-xl font-bold mb-1">500+</div>
-            <div className="text-[7px] md:text-[8px] text-slate-500 tracking-[0.3em] uppercase">Indian Deployments</div>
-        </div>
-        <div className="text-center">
-            <div className="text-white font-orbitron text-base md:text-xl font-bold mb-1">₹12Cr+</div>
-            <div className="text-[7px] md:text-[8px] text-slate-500 tracking-[0.3em] uppercase">Ad Capital Managed</div>
-        </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

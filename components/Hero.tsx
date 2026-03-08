@@ -2,10 +2,12 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import KineticSculpture from './KineticSculpture.tsx';
+import { ArrowRight, Play } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 150]);
+  const y1 = useTransform(scrollY, [0, 600], [0, 160]);
+  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
 
   const scrollToSection = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
@@ -14,73 +16,115 @@ const Hero: React.FC = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center pt-16 md:pt-20 overflow-hidden px-4">
-      {/* 3D Kinetic Sculpture Container */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none scale-[0.5] sm:scale-75 md:scale-100 opacity-60">
+
+      {/* 3D Kinetic Sculpture */}
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none scale-[0.45] sm:scale-[0.65] md:scale-90 opacity-40">
         <KineticSculpture />
       </div>
 
-      <motion.div
-        style={{ y: y1 }}
-        className="relative z-10 text-center max-w-5xl"
-      >
+      {/* Subtle grid overlay */}
+      <div className="absolute inset-0 z-0 opacity-[0.03]"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(14,165,233,1) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,1) 1px, transparent 1px)',
+          backgroundSize: '80px 80px'
+        }}
+      />
+
+      <motion.div style={{ y: y1, opacity }} className="relative z-10 text-center max-w-6xl mx-auto">
+
+        {/* Tag Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="inline-block px-3 py-1 mb-4 md:mb-6 glass border border-blue-400/20 rounded-full"
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="inline-flex items-center gap-3 px-4 py-2 mb-8 rounded-full"
+          style={{
+            background: 'rgba(14,165,233,0.08)',
+            border: '1px solid rgba(14,165,233,0.25)',
+            backdropFilter: 'blur(12px)'
+          }}
         >
-          <span className="text-[7px] md:text-[10px] font-orbitron tracking-[0.2em] md:tracking-[0.3em] text-blue-400 uppercase">Automated Digital Hegemony</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+          <span className="text-[9px] md:text-[11px] font-orbitron tracking-[0.3em] text-sky-400 uppercase">
+            AI-Powered IT Consultancy & Automation
+          </span>
         </motion.div>
 
+        {/* Main Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="font-orbitron text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white leading-tight mb-6 md:mb-8 tracking-tighter"
+          transition={{ duration: 0.9, delay: 0.3 }}
+          className="font-orbitron font-black text-white leading-[1.0] mb-6 md:mb-8 tracking-tighter"
+          style={{ fontSize: 'clamp(2.8rem, 9vw, 7rem)' }}
         >
-          YOUR BUSINESS,<br />
-          <span className="text-gradient drop-shadow-[0_0_25px_rgba(59,130,246,0.6)]">UNIFIED</span> BY INTEL
+          TRANSFORM YOUR<br />
+          <span className="text-gradient">BUSINESS</span> WITH AI
         </motion.h1>
 
+        {/* Sub-headline */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="text-slate-200 text-sm md:text-2xl max-w-3xl mx-auto mb-10 md:mb-12 font-medium leading-relaxed pointer-events-auto px-4 md:px-0 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
+          transition={{ duration: 0.9, delay: 0.5 }}
+          className="text-slate-300 text-base md:text-xl max-w-2xl mx-auto mb-10 md:mb-12 font-light leading-relaxed px-4 md:px-0"
+          style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}
         >
-          We build the websites, AI-chatbots, and high-velocity ad systems that power India's fastest-growing brands.
+          We design AI automation systems, high-conversion websites, and precision ad stacks
+          that give India's fastest-growing businesses an unfair advantage.
         </motion.p>
 
+        {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 pointer-events-auto px-4 md:px-0"
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-5 px-4 md:px-0"
         >
           <button
             onClick={(e) => scrollToSection(e, 'contact')}
-            className="w-full sm:w-auto group relative px-8 md:px-10 py-4 font-orbitron text-[9px] md:text-xs tracking-[0.2em] bg-blue-600 text-white rounded-sm overflow-hidden hover:scale-105 transition-all glow-blue hover:shadow-[0_0_40px_rgba(59,130,246,0.8)]"
+            className="btn-primary w-full sm:w-auto flex items-center justify-center gap-3 group"
           >
-            <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
-            INITIATE GROWTH
+            APPLY FOR GROWTH
+            <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
           </button>
           <button
-            onClick={(e) => scrollToSection(e, 'infrastructure')}
-            className="w-full sm:w-auto px-8 md:px-10 py-4 font-orbitron text-[9px] md:text-xs tracking-[0.2em] glass text-white hover:bg-white/5 transition-colors border border-white/10"
+            onClick={(e) => scrollToSection(e, 'contact')}
+            className="btn-outline w-full sm:w-auto flex items-center justify-center gap-3"
           >
-            OUR PROTOCOLS
+            <Play size={12} fill="currentColor" />
+            CLIENT ACCESS
           </button>
+        </motion.div>
+
+        {/* Trust indicators */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+          className="mt-12 md:mt-16 flex flex-wrap items-center justify-center gap-6 md:gap-10"
+        >
+          {[
+            { value: '60+', label: 'Clients Served' },
+            { value: '98%', label: 'Satisfaction Rate' },
+            { value: '₹100K+', label: 'Revenue Generated' },
+          ].map((stat, i) => (
+            <div key={i} className="text-center px-4">
+              <div className="font-orbitron font-bold text-sky-400 text-lg md:text-2xl">{stat.value}</div>
+              <div className="text-slate-500 text-[10px] md:text-xs uppercase tracking-widest mt-1">{stat.label}</div>
+            </div>
+          ))}
         </motion.div>
       </motion.div>
 
-      {/* Mouse scroll indicator */}
+      {/* Scroll indicator */}
       <motion.div
-        animate={{ y: [0, 10, 0] }}
+        animate={{ y: [0, 12, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40 hidden md:flex"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-3 opacity-30"
       >
-        <div className="w-[1px] h-12 bg-gradient-to-b from-blue-500 to-transparent" />
-        <span className="font-orbitron text-[8px] tracking-[0.4em] uppercase text-slate-500">Scroll to Explore</span>
+        <div className="w-[1px] h-10" style={{ background: 'linear-gradient(to bottom, #0ea5e9, transparent)' }} />
+        <span className="font-orbitron text-[8px] tracking-[0.4em] uppercase text-slate-500">Scroll</span>
       </motion.div>
     </div>
   );
