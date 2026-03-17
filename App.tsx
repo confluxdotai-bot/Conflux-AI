@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import Navbar from './components/Navbar.tsx';
 import Hero from './components/Hero.tsx';
 import InfrastructureSuite from './components/InfrastructureSuite.tsx';
@@ -11,6 +11,7 @@ import Reviews from './components/Reviews.tsx';
 import Founders from './components/Founders.tsx';
 import ContactForm from './components/ContactForm.tsx';
 import BrandingControl from './components/BrandingControl.tsx';
+import Chatbot from './components/Chatbot.tsx';
 
 const App: React.FC = () => {
   const { scrollYProgress } = useScroll();
@@ -36,68 +37,72 @@ const App: React.FC = () => {
     localStorage.removeItem('conflux_custom_logo');
   };
 
-  // Scroll progress bar
   const scaleX = smoothProgress;
 
   return (
-    <div className="relative min-h-screen" style={{ backgroundColor: '#020c1b' }}>
-      {/* Scroll progress bar */}
+    <div className="relative min-h-screen" style={{ backgroundColor: '#ffffff' }}>
+      {/* Scroll progress bar — blue */}
       <motion.div
-        style={{ scaleX, transformOrigin: 'left' }}
-        className="fixed top-0 left-0 right-0 h-[2px] z-[200] bg-gradient-to-r from-sky-500 via-cyan-400 to-indigo-500"
+        className="fixed top-0 left-0 right-0 h-[3px] z-[200]"
+        style={{ scaleX, transformOrigin: 'left', background: 'linear-gradient(90deg, #0000ff, #3333ff, #6666ff)' }}
       />
 
-      {/* Ambient background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[-15%] left-[-10%] w-[55%] h-[55%] rounded-full opacity-20"
-          style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.3) 0%, transparent 70%)', filter: 'blur(80px)' }} />
-        <div className="absolute top-[30%] right-[-15%] w-[40%] h-[50%] rounded-full opacity-15"
-          style={{ background: 'radial-gradient(circle, rgba(6,182,212,0.2) 0%, transparent 70%)', filter: 'blur(100px)' }} />
-        <div className="absolute bottom-[-10%] left-[20%] w-[50%] h-[40%] rounded-full opacity-10"
-          style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%)', filter: 'blur(120px)' }} />
-      </div>
-
+      {/* Global Navbar */}
       <Navbar customLogo={siteLogo} />
 
-      <main className="relative z-10">
-        <section id="home">
+      <main className="relative z-10 w-full overflow-hidden">
+        {/* DARK SECTION 1: Hero */}
+        <section id="home" className="relative" style={{ backgroundColor: '#020c1b' }}>
           <Hero />
         </section>
 
-        <section id="infrastructure" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24">
+        {/* LIGHT SECTION 1: Infrastructure */}
+        <section id="infrastructure" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24 relative" style={{ backgroundColor: '#ffffff' }}>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(0,0,255,0.3), transparent)' }} />
           <InfrastructureSuite />
         </section>
 
-        <section id="impact" className="py-24 overflow-hidden" style={{ borderTop: '1px solid rgba(14,165,233,0.08)', borderBottom: '1px solid rgba(14,165,233,0.08)', background: 'rgba(14,165,233,0.02)' }}>
+        {/* LIGHT SECTION 2: Impact */}
+        <section id="impact" className="py-24 relative" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid rgba(15,23,42,0.04)', borderBottom: '1px solid rgba(15,23,42,0.04)' }}>
           <TrustEngine />
         </section>
 
-        <section id="ai-core" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24">
+        {/* DARK SECTION 2: AI Core */}
+        <section id="ai-core" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24 relative overflow-hidden" style={{ backgroundColor: '#020c1b' }}>
+          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full opacity-10 pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(0,0,255,1) 0%, transparent 70%)', filter: 'blur(100px)' }} />
           <AICore />
         </section>
 
-        <section id="projects" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24" style={{ background: 'rgba(14,165,233,0.02)', borderTop: '1px solid rgba(14,165,233,0.08)', borderBottom: '1px solid rgba(14,165,233,0.08)' }}>
+        {/* LIGHT SECTION 3: Projects */}
+        <section id="projects" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24 relative" style={{ backgroundColor: '#ffffff' }}>
           <Projects />
         </section>
 
-        <section id="reviews" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24">
+        {/* LIGHT SECTION 4: Reviews */}
+        <section id="reviews" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24 relative" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid rgba(15,23,42,0.04)' }}>
           <Reviews />
         </section>
 
-        <section id="founders" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24" style={{ background: 'rgba(14,165,233,0.02)', borderTop: '1px solid rgba(14,165,233,0.08)' }}>
+        {/* LIGHT SECTION 5: Founders */}
+        <section id="founders" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24 relative" style={{ backgroundColor: '#ffffff', borderTop: '1px solid rgba(15,23,42,0.04)' }}>
           <Founders />
         </section>
 
-        <section id="contact" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24" style={{ borderTop: '1px solid rgba(14,165,233,0.08)' }}>
+        {/* DARK SECTION 3: Contact */}
+        <section id="contact" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24 relative overflow-hidden" style={{ backgroundColor: '#020c1b' }}>
+          <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full opacity-10 pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(0,0,255,1) 0%, transparent 70%)', filter: 'blur(120px)' }} />
           <ContactForm />
         </section>
       </main>
 
-      <footer className="py-12 px-6 text-center" style={{ borderTop: '1px solid rgba(14,165,233,0.1)' }}>
-        <div className="mb-6 flex flex-wrap justify-center gap-x-8 gap-y-2 font-orbitron text-[10px] tracking-[0.2em] uppercase">
-          <a href="#" className="text-slate-500 hover:text-sky-400 transition-colors">Privacy Policy</a>
-          <a href="#" className="text-slate-500 hover:text-sky-400 transition-colors">Terms of Service</a>
-          <a href="mailto:confluxdotai@gmail.com" className="text-sky-500 hover:text-sky-300 transition-colors">confluxdotai@gmail.com</a>
+      {/* DARK SECTION 4: Footer */}
+      <footer className="py-12 px-6 text-center relative" style={{ backgroundColor: '#050f1f', borderTop: '1px solid rgba(0,0,255,0.15)' }}>
+        <div className="mb-6 flex flex-wrap justify-center gap-x-8 gap-y-2 font-inter text-[11px] font-bold tracking-widest uppercase">
+          <a href="#" className="text-slate-500 hover:text-blue-500 transition-colors">Privacy Policy</a>
+          <a href="#" className="text-slate-500 hover:text-blue-500 transition-colors">Terms of Service</a>
+          <a href="mailto:confluxdotai@gmail.com" className="text-blue-500 hover:text-blue-400 transition-colors">confluxdotai@gmail.com</a>
         </div>
 
         {/* Social Media Links */}
@@ -125,7 +130,7 @@ const App: React.FC = () => {
             }
           ].map((social, i) => (
             <a key={i} href={social.href} target="_blank" rel="noopener noreferrer"
-              className="text-slate-600 hover:text-sky-400 transition-all duration-300 hover:scale-125">
+              className="text-slate-600 hover:text-blue-500 transition-all duration-300 hover:scale-125">
               {social.icon}
             </a>
           ))}
@@ -133,18 +138,21 @@ const App: React.FC = () => {
 
         <div className="flex justify-center mb-4">
           {siteLogo ? (
-            <div className="w-8 h-8 rounded-full overflow-hidden opacity-50 hover:opacity-100 transition-all" style={{ border: '1px solid rgba(14,165,233,0.2)' }}>
+            <div className="w-8 h-8 rounded-full overflow-hidden opacity-50 hover:opacity-100 transition-all" style={{ border: '1px solid rgba(0,0,255,0.3)' }}>
               <img src={siteLogo} alt="Site Logo" className="w-full h-full object-cover" />
             </div>
           ) : (
-            <span className="font-orbitron font-bold text-xs tracking-tighter opacity-40">CONFLUX<span className="text-sky-500">AI</span></span>
+            <span className="font-inter font-black text-xs tracking-tight opacity-100 text-white">CONFLUX<span className="text-blue-500">AI</span></span>
           )}
         </div>
-        <p className="font-orbitron text-[8px] tracking-[0.1em] text-slate-600">© {new Date().getFullYear()} CONFLUXAI.IN. ALL RIGHTS RESERVED.</p>
+        <p className="font-inter text-[10px] font-bold tracking-widest text-slate-500 uppercase">© {new Date().getFullYear()} CONFLUXAI.IN. ALL RIGHTS RESERVED.</p>
       </footer>
 
       {/* Manual Logo Upload Control */}
       <BrandingControl onUpload={handleLogoUpload} onReset={handleLogoReset} currentLogo={siteLogo} />
+
+      {/* Integrated Chatbot */}
+      <Chatbot />
     </div>
   );
 };

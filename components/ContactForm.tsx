@@ -24,7 +24,7 @@ const ContactForm: React.FC = () => {
     setStatus('processing');
 
     try {
-      // EmailJS configuration — sends to confluxdotai@gmail.com
+      // EmailJS configuration
       await emailjs.send(
         'service_confluxai',      // EmailJS Service ID
         'template_confluxai',     // EmailJS Template ID
@@ -43,7 +43,7 @@ const ContactForm: React.FC = () => {
       setStatus('success');
     } catch (err) {
       console.error('EmailJS error:', err);
-      // Fallback — open mailto link if EmailJS fails
+      // Fallback
       const subject = encodeURIComponent(`New Growth Application — ${formData.company}`);
       const body = encodeURIComponent(
         `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nCompany: ${formData.company}\nGoal: ${formData.goal}\nMessage: ${formData.message}`
@@ -55,16 +55,16 @@ const ContactForm: React.FC = () => {
 
   const inputStyle = (field: string) => ({
     width: '100%',
-    background: focused === field ? 'rgba(14,165,233,0.07)' : 'rgba(255,255,255,0.03)',
-    border: `1px solid ${focused === field ? 'rgba(14,165,233,0.5)' : 'rgba(255,255,255,0.08)'}`,
+    background: focused === field ? 'rgba(15,23,42,0.8)' : 'rgba(2,12,27,0.6)',
+    border: `1px solid ${focused === field ? 'rgba(0,0,255,0.5)' : 'rgba(30,41,59,0.8)'}`,
     borderRadius: '6px',
     padding: '14px 16px',
-    color: '#f0f9ff',
-    fontSize: '14px',
+    color: '#f8fafc',
+    fontSize: '16px',
     outline: 'none',
     transition: 'all 0.25s ease',
     fontFamily: 'Inter, sans-serif',
-    boxShadow: focused === field ? '0 0 0 3px rgba(14,165,233,0.08)' : 'none'
+    boxShadow: focused === field ? '0 0 15px rgba(0,0,255,0.1)' : 'inset 0 1px 4px rgba(0,0,0,0.2)'
   });
 
   const serviceOptions = [
@@ -83,31 +83,31 @@ const ContactForm: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           className="text-center py-20 px-8 rounded-2xl"
           style={{
-            background: 'linear-gradient(135deg, rgba(14,165,233,0.08), rgba(5,15,31,0.9))',
-            border: '1px solid rgba(14,165,233,0.25)',
-            backdropFilter: 'blur(20px)'
+            background: 'linear-gradient(135deg, rgba(0,0,255,0.05), rgba(2,12,27,0.8))',
+            border: '1px solid rgba(0,0,255,0.2)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.4), inset 0 0 40px rgba(0,0,255,0.05)'
           }}
         >
           <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
-            style={{ background: 'rgba(14,165,233,0.12)', border: '1px solid rgba(14,165,233,0.3)' }}>
-            <CheckCircle2 size={40} style={{ color: '#0ea5e9' }} />
+            style={{ background: 'rgba(0,0,255,0.1)', border: '1px solid rgba(0,0,255,0.4)', boxShadow: '0 0 20px rgba(0,0,255,0.3)' }}>
+            <CheckCircle2 size={40} style={{ color: '#3333ff' }} />
           </div>
-          <h3 className="font-orbitron text-2xl md:text-3xl font-bold text-white mb-3">Application Received!</h3>
-          <p className="text-slate-400 text-sm md:text-base mb-2 max-w-md mx-auto leading-relaxed">
+          <h3 className="font-inter text-2xl md:text-3xl font-black mb-3 text-white">Message Received!</h3>
+          <p className="text-sm md:text-base mb-2 max-w-md mx-auto leading-relaxed" style={{ color: '#94a3b8' }}>
             Thank you, <strong className="text-white">{formData.name}</strong>. Our growth team has received your application
-            and will reach out within <strong className="text-sky-400">24 hours</strong>.
+            and will reach out within <strong className="text-blue-500">24 hours</strong>.
           </p>
           <div className="mt-8 inline-flex items-center gap-2 px-5 py-3 rounded-lg"
-            style={{ background: 'rgba(14,165,233,0.08)', border: '1px solid rgba(14,165,233,0.15)' }}>
-            <Mail size={14} style={{ color: '#0ea5e9' }} />
-            <span className="font-orbitron text-[11px] tracking-widest text-sky-400">confluxdotai@gmail.com</span>
+            style={{ background: 'rgba(0,0,255,0.1)', border: '1px solid rgba(0,0,255,0.3)' }}>
+            <Mail size={14} style={{ color: '#3333ff' }} />
+            <span className="font-inter text-[12px] font-bold tracking-wide text-blue-500">confluxdotai@gmail.com</span>
           </div>
           <div className="mt-6">
             <button
               onClick={() => { setStatus('idle'); setFormData({ name: '', email: '', phone: '', company: '', goal: '', message: '' }); }}
-              className="font-orbitron text-[10px] tracking-widest text-slate-500 hover:text-sky-400 transition-colors bg-transparent border-none"
+              className="font-inter text-[11px] font-bold tracking-wide transition-colors bg-transparent border-none uppercase text-slate-400 hover:text-blue-500"
             >
-              SUBMIT ANOTHER APPLICATION
+              SEND ANOTHER MESSAGE
             </button>
           </div>
         </motion.div>
@@ -123,20 +123,21 @@ const ContactForm: React.FC = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6"
-          style={{ background: 'rgba(14,165,233,0.1)', border: '1px solid rgba(14,165,233,0.2)' }}
+          className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 relative group"
+          style={{ background: 'rgba(0,0,255,0.1)', border: '1px solid rgba(0,0,255,0.3)', boxShadow: '0 0 30px rgba(0,0,255,0.2)' }}
         >
-          <Mail size={28} style={{ color: '#0ea5e9' }} />
+          <div className="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl rounded-2xl" />
+          <Mail size={28} className="text-blue-500 relative z-10" />
         </motion.div>
-        <h2 className="font-orbitron text-3xl md:text-5xl font-black text-white mb-3 uppercase tracking-tight">
-          Apply for <span className="text-gradient">Growth</span>
+        <h2 className="font-inter text-3xl md:text-5xl font-black mb-3 uppercase tracking-tight text-white">
+          Let's <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(135deg, #6666ff 0%, #0000ff 100%)' }}>Grow Together</span>
         </h2>
-        <p className="text-slate-400 text-sm md:text-base max-w-md mx-auto mb-4 leading-relaxed">
+        <p className="text-sm md:text-base max-w-md mx-auto mb-4 leading-relaxed" style={{ color: '#94a3b8' }}>
           Tell us about your business and goals. We'll design a custom AI strategy for you.
         </p>
-        <div className="flex items-center justify-center gap-2" style={{ color: 'rgba(14,165,233,0.6)' }}>
+        <div className="flex items-center justify-center gap-2 text-blue-500">
           <Mail size={12} />
-          <a href="mailto:confluxdotai@gmail.com" className="font-orbitron text-[10px] tracking-widest hover:text-sky-400 transition-colors uppercase">
+          <a href="mailto:confluxdotai@gmail.com" className="font-inter text-[11px] font-bold tracking-wide transition-colors uppercase text-blue-500 hover:text-blue-400">
             confluxdotai@gmail.com
           </a>
         </div>
@@ -148,28 +149,27 @@ const ContactForm: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="rounded-2xl overflow-hidden"
+        className="rounded-2xl overflow-hidden relative backdrop-blur-xl"
         style={{
-          background: 'linear-gradient(135deg, rgba(14,165,233,0.04) 0%, rgba(5,15,31,0.85) 100%)',
-          border: '1px solid rgba(14,165,233,0.12)',
-          backdropFilter: 'blur(24px)',
-          boxShadow: '0 40px 80px rgba(0,0,0,0.5)'
+          background: 'linear-gradient(135deg, rgba(30,41,59,0.4), rgba(2,12,27,0.8))',
+          border: '1px solid rgba(0,0,255,0.2)',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,255,0.05)'
         }}
       >
         {/* Form top bar */}
-        <div className="px-8 py-4 flex items-center gap-2" style={{ borderBottom: '1px solid rgba(14,165,233,0.08)', background: 'rgba(14,165,233,0.03)' }}>
-          <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-          <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-          <span className="ml-4 font-orbitron text-[9px] tracking-widest text-slate-600 uppercase">Growth Application Form</span>
+        <div className="px-8 py-4 flex items-center gap-2" style={{ borderBottom: '1px solid rgba(30,41,59,0.8)', background: 'rgba(15,23,42,0.4)' }}>
+          <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
+          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
+          <div className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+          <span className="ml-4 font-inter text-[11px] font-bold tracking-wide uppercase text-slate-400">Contact Us</span>
         </div>
 
-        <div className="p-6 md:p-10">
+        <div className="p-5 md:p-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
             {/* Full Name */}
             <div>
-              <label className="flex items-center gap-2 text-slate-400 text-[11px] font-medium tracking-widest uppercase mb-2">
-                <User size={10} /> Full Name *
+              <label className="flex items-center gap-2 text-[11px] font-medium tracking-widest uppercase mb-2 text-slate-400">
+                <User size={10} className="text-blue-500" /> Full Name *
               </label>
               <input
                 type="text"
@@ -185,8 +185,8 @@ const ContactForm: React.FC = () => {
 
             {/* Email */}
             <div>
-              <label className="flex items-center gap-2 text-slate-400 text-[11px] font-medium tracking-widest uppercase mb-2">
-                <Mail size={10} /> Business Email *
+              <label className="flex items-center gap-2 text-[11px] font-medium tracking-widest uppercase mb-2 text-slate-400">
+                <Mail size={10} className="text-blue-500" /> Business Email *
               </label>
               <input
                 type="email"
@@ -202,8 +202,8 @@ const ContactForm: React.FC = () => {
 
             {/* Company */}
             <div>
-              <label className="flex items-center gap-2 text-slate-400 text-[11px] font-medium tracking-widest uppercase mb-2">
-                <Building2 size={10} /> Company / Business *
+              <label className="flex items-center gap-2 text-[11px] font-medium tracking-widest uppercase mb-2 text-slate-400">
+                <Building2 size={10} className="text-blue-500" /> Company / Business *
               </label>
               <input
                 type="text"
@@ -219,8 +219,8 @@ const ContactForm: React.FC = () => {
 
             {/* Phone */}
             <div>
-              <label className="flex items-center gap-2 text-slate-400 text-[11px] font-medium tracking-widest uppercase mb-2">
-                <User size={10} /> Phone Number
+              <label className="flex items-center gap-2 text-[11px] font-medium tracking-widest uppercase mb-2 text-slate-400">
+                <User size={10} className="text-blue-500" /> Phone Number
               </label>
               <input
                 type="tel"
@@ -235,8 +235,8 @@ const ContactForm: React.FC = () => {
 
             {/* Service Goal */}
             <div className="md:col-span-2">
-              <label className="flex items-center gap-2 text-slate-400 text-[11px] font-medium tracking-widest uppercase mb-2">
-                <Briefcase size={10} /> What Do You Need?
+              <label className="flex items-center gap-2 text-[11px] font-medium tracking-widest uppercase mb-2 text-slate-400">
+                <Briefcase size={10} className="text-blue-500" /> What Do You Need?
               </label>
               <select
                 style={{ ...inputStyle('goal'), cursor: 'pointer', appearance: 'none' }}
@@ -245,17 +245,17 @@ const ContactForm: React.FC = () => {
                 onBlur={() => setFocused(null)}
                 onChange={e => setFormData({ ...formData, goal: e.target.value })}
               >
-                <option value="" style={{ background: '#020c1b' }}>Select a service...</option>
+                <option value="" style={{ color: '#64748b' }}>Select a service...</option>
                 {serviceOptions.map(opt => (
-                  <option key={opt.value} value={opt.value} style={{ background: '#020c1b' }}>{opt.label}</option>
+                  <option key={opt.value} value={opt.value} style={{ color: '#f8fafc', background: '#020c1b' }}>{opt.label}</option>
                 ))}
               </select>
             </div>
 
             {/* Message */}
             <div className="md:col-span-2">
-              <label className="flex items-center gap-2 text-slate-400 text-[11px] font-medium tracking-widest uppercase mb-2">
-                <Send size={10} /> Tell Us More (Optional)
+              <label className="flex items-center gap-2 text-[11px] font-medium tracking-widest uppercase mb-2 text-slate-400">
+                <Send size={10} className="text-blue-500" /> Tell Us More (Optional)
               </label>
               <textarea
                 rows={4}
@@ -272,7 +272,7 @@ const ContactForm: React.FC = () => {
             <div className="md:col-span-2 pt-2">
               {status === 'error' && (
                 <div className="flex items-center gap-2 mb-4 p-3 rounded-lg"
-                  style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}>
+                  style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)' }}>
                   <AlertCircle size={14} className="text-red-400 flex-shrink-0" />
                   <span className="text-red-400 text-xs">Something went wrong. Please email us directly at confluxdotai@gmail.com</span>
                 </div>
@@ -281,29 +281,30 @@ const ContactForm: React.FC = () => {
               <button
                 type="submit"
                 disabled={status === 'processing'}
-                className="w-full group py-4 md:py-5 rounded-lg font-orbitron text-xs tracking-[0.25em] text-white flex items-center justify-center gap-3 transition-all duration-300 disabled:opacity-60"
+                className="w-full group relative py-4 md:py-5 rounded-lg font-orbitron text-xs tracking-[0.25em] text-white flex items-center justify-center gap-3 transition-all duration-300 disabled:opacity-60 overflow-hidden"
                 style={{
                   background: status === 'processing'
-                    ? 'rgba(14,165,233,0.5)'
-                    : 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)',
-                  boxShadow: status !== 'processing' ? '0 8px 30px rgba(14,165,233,0.4)' : 'none'
+                    ? 'rgba(0,0,255,0.5)'
+                    : 'linear-gradient(135deg, #0000ff 0%, #0000cc 100%)',
+                  boxShadow: status !== 'processing' ? '0 8px 30px rgba(0,0,255,0.4)' : 'none'
                 }}
               >
+                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
                 {status === 'processing' ? (
                   <>
                     <Loader2 size={16} className="animate-spin" />
-                    SENDING YOUR APPLICATION...
+                    TRANSMITTING...
                   </>
                 ) : (
                   <>
-                    SUBMIT APPLICATION
+                    SEND MESSAGE
                     <Send size={14} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </>
                 )}
               </button>
 
-              <p className="text-center mt-4 text-[10px] text-slate-600">
-                🔒 Your information is secure and will never be shared. We respond within 24 hours.
+              <p className="text-center mt-4 text-[10px]" style={{ color: '#64748b' }}>
+                🔒 Encryption active. Your protocol data is secure. We respond within 24 hours.
               </p>
             </div>
           </div>
