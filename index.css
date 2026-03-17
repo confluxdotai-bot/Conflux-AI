@@ -1,0 +1,400 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;600;700;800;900&display=swap');
+
+/* ── Root Design Tokens ─────────────────────────────────────── */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: #f1f5f9;
+  --accent-blue: #0000ff;
+  --accent-blue-light: #3333ff;
+  --accent-blue-dark: #000099;
+  --accent-navy: #0f172a;
+  --accent-navy-mid: #1e293b;
+  --text-primary: #0f172a;
+  --text-secondary: #020617; /* Darker for better contrast */
+  --text-muted: #475569; /* Darker for better contrast */
+  --border-light: rgba(15, 23, 42, 0.1);
+  --border-blue: rgba(0, 0, 255, 0.25);
+  --glow-blue: rgba(0, 0, 255, 0.25);
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+  scroll-behavior: smooth;
+  color: #000000; /* Force black for maximum visibility */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
+  overflow-x: hidden;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Typography ─────────────────────────────────────────────── */
+.font-orbitron {
+  font-family: 'Inter', sans-serif; /* Simplified for user readability */
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+/* ── Gradient Text ──────────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(135deg, #0000ff 0%, #3333ff 40%, #6666ff 80%, #0000ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 300% 300%;
+  animation: gradientFlow 6s ease infinite;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fcd34d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ── Glow / Shadow Effects ──────────────────────────────────── */
+.glow-blue {
+  box-shadow: 0 0 24px rgba(0, 0, 255, 0.2), inset 0 0 12px rgba(0, 0, 255, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.glow-blue:hover {
+  box-shadow: 0 0 40px rgba(0, 0, 255, 0.35), inset 0 0 20px rgba(0, 0, 255, 0.15);
+}
+
+/* Legacy compat */
+.glow-blue-compat {
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.glow-blue-compat:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 255, 0.2);
+}
+
+/* ── Glass Morphism (light) ─────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  box-shadow: 0 8px 40px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.98) 50%, rgba(241,245,249,0.95) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 255, 0.15);
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* ── Animated Marquee ───────────────────────────────────────── */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.animate-spark {
+  animation: spark-travel 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes lightning-flash {
+  0%, 93%, 98%, 100% { opacity: 0; filter: brightness(1); }
+  94%, 96% { opacity: 0.8; filter: brightness(2); }
+  95%, 97% { opacity: 0.3; filter: brightness(1.5); }
+}
+
+.animate-lightning {
+  animation: lightning-flash 8s infinite;
+}
+
+@keyframes lightning-strike {
+  0%, 90% { opacity: 0; transform: scaleY(0); }
+  92% { opacity: 1; transform: scaleY(1); filter: brightness(2) drop-shadow(0 0 20px #3333ff); }
+  93% { opacity: 0; transform: scaleY(1); }
+  95% { opacity: 0.8; transform: scaleY(1.1); filter: brightness(1.5) drop-shadow(0 0 10px #0000ff); }
+  96%, 100% { opacity: 0; transform: scaleY(1); }
+}
+
+.animate-lightning-strike {
+  animation: lightning-strike 7s infinite;
+  transform-origin: top;
+}
+
+@keyframes spark-explosion {
+  0%, 92% { transform: scale(0); opacity: 0; }
+  94% { transform: scale(1.5); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.animate-spark-explosion {
+  animation: spark-explosion 7s infinite;
+}
+
+@keyframes particle-float {
+  0% { transform: translateY(0) scale(1) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-300px) scale(0) translateX(50px); opacity: 0; }
+}
+
+.animate-particle-float {
+  animation: particle-float linear infinite;
+}
+
+/* DNA / Wave Background Animations */
+@keyframes wave-shift {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-wave-shift {
+  animation: wave-shift 20s linear infinite;
+}
+
+.animate-wave-shift-slow {
+  animation: wave-shift 30s linear infinite reverse;
+}
+
+/* ── Gradient Borders ───────────────────────────────────────── */
+.border-gradient {
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.border-gradient::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(0, 0, 255, 0.5), rgba(51, 51, 255, 0.3), rgba(15, 23, 42, 0.15));
+  z-index: -1;
+}
+
+/* ── CTA Button Styles ──────────────────────────────────────── */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0000ff 0%, #0000cc 100%);
+  border: none;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 14px 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 255, 0.2);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 35px rgba(0, 0, 255, 0.5);
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid rgba(0, 0, 128, 0.3);
+  color: #000080;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 14px 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btn-outline:hover {
+  background: rgba(0, 0, 255, 0.08);
+  border-color: rgba(0, 0, 255, 0.6);
+  color: #0000ff;
+  box-shadow: 0 0 20px rgba(0, 0, 255, 0.1);
+}
+
+/* ── Section Tags ───────────────────────────────────────────── */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: #0000ff;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.section-tag::before,
+.section-tag::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 32px;
+  background: linear-gradient(90deg, transparent, #0000ff);
+}
+
+.section-tag::after {
+  background: linear-gradient(90deg, #0000ff, transparent);
+}
+
+/* ── Input Fields ───────────────────────────────────────────── */
+input,
+select,
+textarea {
+  font-family: 'Inter', sans-serif;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: rgba(0, 0, 255, 0.6) !important;
+  box-shadow: 0 0 0 4px rgba(0, 0, 255, 0.1);
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #0000ff, #3333ff);
+  border-radius: 2px;
+}
+
+/* ── Review Avatar ──────────────────────────────────────────── */
+.review-avatar {
+  background: linear-gradient(135deg, #0000ff 0%, #0f172a 100%);
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Mobile utilities ───────────────────────────────────────── */
+@media (max-width: 640px) {
+  .glass-card {
+    border-radius: 16px;
+  }
+}
+
+/* ── Button base override ───────────────────────────────────── */
+button {
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* ── Animated floating elements ─────────────────────────────── */
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-16px); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-blue {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 0, 255, 0.3); }
+  50% { box-shadow: 0 0 0 12px rgba(0, 0, 255, 0); }
+}
+
+/* ── Blue dot accent animations ────────────────────────────── */
+.dot-blue {
+  background: #3333ff;
+  animation: pulse-blue 2s ease-in-out infinite;
+}
+
+/* ── Shimmer Animation for Metallic Surfaces ─────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
