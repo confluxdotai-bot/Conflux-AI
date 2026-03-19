@@ -4,6 +4,13 @@ import { ShieldCheck, Zap, MessageSquareCode, RefreshCw, Send } from 'lucide-rea
 import AnswerBox from './AnswerBox';
 
 const AICore: React.FC = () => {
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const messages = [
     { role: 'ai', text: 'Conflux AI Core active. Infrastructure optimised and ready.' },
     { role: 'user', text: 'Analyse our customer support ticket volume and suggest automation.' },
@@ -51,7 +58,7 @@ const AICore: React.FC = () => {
           className="text-base md:text-lg font-normal leading-relaxed mb-10 max-w-md mx-auto lg:mx-0"
           style={{ color: '#cbd5e1' }}
         >
-          Use the power of AI right where your customers already are. We help you answer messages, book appointments, and help people 24/7 without extra work.
+          Use the power of an <dfn className="not-italic font-bold text-blue-400">AI Chatbot</dfn> right where your customers already are on WhatsApp and your website. Our smart assistants help you answer messages, book appointments, and support your clients 24/7 without any extra manual work. This allows you to scale your business while maintaining a premium customer experience that builds trust and loyalty.
         </motion.p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left max-w-md mx-auto lg:mx-0">
@@ -76,10 +83,10 @@ const AICore: React.FC = () => {
       </div>
 
       {/* Right side: AEO Answer Box & Phone mockup */}
-      <div className="flex-1 w-full flex flex-col items-center gap-12">
+      <section id="how-ai-automation-saves-money" className="flex-1 w-full flex flex-col items-center gap-12">
         <AnswerBox 
           question="How can an AI Chatbot help my business grow?"
-          answer="A custom AI Chatbot is like a super-fast assistant that works 24/7. It talks to your website visitors, answers their questions immediately, and books meetings for you even while you sleep. Most businesses find they can capture 50% more customers because no one has to wait for a reply."
+          answer="A custom AI Chatbot is like a super-fast assistant that works 24/7. It talks to your website visitors, answers their questions immediately, and books meetings for you even while you sleep. Most businesses find they can capture 50% more customers because no one has to wait for a reply, and it significantly reduces operational costs by automating up to 80% of routine customer queries."
           listItems={[
             "Always Awake: Works 24/7, never misses a customer.",
             "Instant Replies: No more waiting for emails.",
@@ -159,14 +166,16 @@ const AICore: React.FC = () => {
                 style={{ background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(30,41,59,0.8)', color: '#64748b' }}>
                 Awaiting command...
               </div>
-              <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0"
+              <div 
+                onClick={scrollToContact}
+                className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 cursor-pointer"
                 style={{ background: 'linear-gradient(135deg, #0000ff, #0000cc)', border: '1px solid #3333ff', boxShadow: '0 0 15px rgba(0,0,255,0.4)' }}>
                 <Send size={14} className="text-white ml-0.5" />
               </div>
             </div>
           </motion.div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

@@ -11,6 +11,10 @@ const Founders: React.FC = () => {
             quote: "I love building tools that actually help people. Our goal is to give every small business in India the power of simple, smart AI.",
             specialties: ["Building AI Tools", "Business Strategy", "Expert Coding"],
             accentColor: "#0000ff",
+            socials: [
+                { platform: "LinkedIn", url: "https://www.linkedin.com/in/tarunjit-biswas/" },
+                { platform: "YouTube", url: "https://www.youtube.com/@confluxai" }
+            ],
             delay: 0.15
         },
         {
@@ -21,6 +25,10 @@ const Founders: React.FC = () => {
             quote: "We believe great tech should be easy for everyone to use. We build systems that help you grow and make your work easier every day.",
             specialties: ["Getting You More Sales", "Planning for Growth", "Marketing Expert"],
             accentColor: "#0f172a",
+            socials: [
+                { platform: "LinkedIn", url: "https://www.linkedin.com/in/shouvik-majumdar/" },
+                { platform: "YouTube", url: "https://www.youtube.com/@confluxai" }
+            ],
             delay: 0.3
         }
     ];
@@ -142,6 +150,28 @@ const Founders: React.FC = () => {
                                             {s}
                                         </span>
                                     ))}
+                                </div>
+
+                                {/* Social Links with rel="me" for Entity Authority */}
+                                <div className="flex gap-4 mt-6">
+                                    {founder.socials.map((social, i) => (
+                                        <a 
+                                            key={i} 
+                                            href={social.url} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer me"
+                                            className="text-[10px] font-black uppercase tracking-widest hover:text-blue-600 transition-colors"
+                                            style={{ color: '#64748b' }}
+                                        >
+                                            {social.platform}
+                                        </a>
+                                    ))}
+                                </div>
+
+                                {/* 2026 GEO: Entity Link */}
+                                <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-center gap-2">
+                                   <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                                   <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Verified Knowledge Graph Signal</span>
                                 </div>
                             </div>
                         </div>
