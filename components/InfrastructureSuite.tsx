@@ -153,6 +153,20 @@ const AnimatedCode = () => {
 };
 
 const InfrastructureSuite: React.FC = () => {
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const manualVsAuto = [
+    { label: "Lead Response", manual: "2-4 Hours", auto: "Instant (< 1s)" },
+    { label: "Availability", manual: "9 AM - 6 PM", auto: "24/7/365" },
+    { label: "Data Accuracy", manual: "85% (Human Error)", auto: "99.9% (Verified)" },
+    { label: "Follow-up", manual: "Forgotten 40%", auto: "100% Automated" }
+  ];
+
   const cards = [
     {
       title: "24/7 Smart Assistants",
@@ -216,10 +230,10 @@ const InfrastructureSuite: React.FC = () => {
         </div>
       </div>
 
-      <div className="mb-16 md:mb-20">
+      <section id="smart-automation-benefits" className="mb-16 md:mb-20">
         <AnswerBox 
           question="How does Smart Automation make my work easier?"
-          answer="Smart automation handles all the boring, repetitive tasks for you. Instead of typing data manually or moving files between apps, everything happens automatically and perfectly every time. This saves you hours of work every week and stops simple mistakes before they happen."
+          answer="Smart automation handles all the boring, repetitive tasks for your business without needing constant supervision. Instead of typing data manually or moving files between apps every day, everything happens automatically and perfectly every time using advanced logic. This saves you approximately 20 hours of work every week and stops simple human mistakes before they ever happen, allowing you to focus on high-level growth."
           listItems={[
             "No More Boring Work: Computers handle the repetitive stuff.",
             "Zero Mistakes: Everything is done perfectly every time.",
@@ -227,72 +241,142 @@ const InfrastructureSuite: React.FC = () => {
           ]}
           delay={0.2}
         />
-      </div>
+      </section>
 
-      {/* Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-        {cards.map((card, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: card.delay }}
-            className="relative group h-full"
-          >
-            {/* Hover Glow Background */}
-            <div className="absolute inset-0 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"
-              style={{ background: 'rgba(0,0,255,0.15)' }} />
-
-            <div className="glass-card relative h-full rounded-2xl p-6 md:p-8 flex flex-col transition-all duration-300 group-hover:-translate-y-2 overflow-hidden">
-                
-              {/* Spark Animation Line */}
-              <div className="absolute top-0 left-0 w-full h-[2px] bg-slate-100 overflow-hidden">
-                  <div className="w-[100px] h-full bg-blue-600 animate-spark" />
-              </div>
-
-              {/* Tag & Visual */}
-              <div className="flex justify-between items-center mb-6">
-                <div className="font-orbitron text-[10px] tracking-[0.2em] px-3 py-1.5 rounded-sm uppercase font-bold"
-                  style={{ background: 'rgba(0,0,255,0.1)', color: '#0000cc', border: '1px solid rgba(0,0,255,0.2)' }}>
-                  {card.tag}
-                </div>
-              </div>
-
-              {/* The SVG Animation Block */}
-              {card.visual}
-
-              {/* Content */}
-              <h3 className="font-inter text-xl md:text-2xl font-bold mb-4 transition-colors"
-                style={{ color: '#0f172a' }}
-              >
-                {card.title}
-              </h3>
-
-              <p className="text-sm font-inter leading-relaxed mb-8 flex-grow" style={{ color: '#475569' }}>
-                {card.description}
-              </p>
-
-              {/* Features List */}
-              <ul className="space-y-3 mb-8">
-                {card.features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-3 text-xs font-medium" style={{ color: '#334155' }}>
-                    <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: '#0000ff' }} />
-                    {feature}
-                  </li>
+      {/* Comparison Table for AI Extraction */}
+      <section id="manual-vs-automated-performance" className="mb-16 md:mb-24 overflow-hidden rounded-3xl border border-slate-200 bg-slate-50/50">
+        <div className="p-8 md:p-12">
+          <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-8 tracking-tight uppercase">Efficiency Comparison</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-slate-200">
+                  <th className="py-4 px-6 text-xs font-black uppercase tracking-widest text-slate-400">Parameter</th>
+                  <th className="py-4 px-6 text-xs font-black uppercase tracking-widest text-slate-400">Manual Process</th>
+                  <th className="py-4 px-6 text-xs font-black uppercase tracking-widest text-blue-600">Conflux Automation</th>
+                </tr>
+              </thead>
+              <tbody>
+                {manualVsAuto.map((row, i) => (
+                  <tr key={i} className="border-b border-slate-100 hover:bg-white/50 transition-colors">
+                    <td className="py-5 px-6 font-bold text-slate-900">{row.label}</td>
+                    <td className="py-5 px-6 text-slate-500">{row.manual}</td>
+                    <td className="py-5 px-6 font-black text-blue-600">{row.auto}</td>
+                  </tr>
                 ))}
-              </ul>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
 
-              {/* Action Link */}
-              <div className="mt-auto">
-                <button className="flex items-center gap-2 font-inter text-[12px] uppercase tracking-wide font-bold group-hover:gap-3 transition-all"
-                  style={{ color: '#0000ff' }}>
-                  Learn More <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-                </button>
-              </div>
+      {/* Bento Grid Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[250px] md:auto-rows-[300px]">
+        {/* Card 1: Main AI - Large (Col 1-8) */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          className="md:col-span-8 md:row-span-2 glass-tile p-8 md:p-12 group flex flex-col justify-between"
+        >
+          <div className="flex justify-between items-start mb-8">
+            <div className="max-w-md">
+              <div className="font-inter text-[10px] tracking-[0.4em] text-blue-500 font-black uppercase mb-4">Core Intelligence</div>
+              <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter mb-4 leading-none">
+                {cards[0].title}
+              </h3>
+              <p className="text-slate-500 font-medium text-lg leading-relaxed">
+                {cards[0].description}
+              </p>
             </div>
-          </motion.div>
-        ))}
+            <div className="hidden md:block">
+               <div className="w-16 h-16 rounded-full bg-blue-600/10 flex items-center justify-center border border-blue-600/20">
+                 <Bot className="text-blue-600" size={32} />
+               </div>
+            </div>
+          </div>
+          
+          <div className="flex-1 flex items-center justify-center py-8">
+            <div className="w-full max-w-2xl transform group-hover:scale-105 transition-transform duration-700">
+               {cards[0].visual}
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-4 mt-8 pt-8 border-t border-slate-100">
+             {cards[0].features.map((f, i) => (
+               <span key={i} className="px-4 py-2 rounded-full bg-slate-50 border border-slate-200 text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                 {f}
+               </span>
+             ))}
+          </div>
+        </motion.div>
+
+        {/* Card 2: Website - Tall (Col 9-12) */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          onClick={scrollToContact}
+          className="md:col-span-4 md:row-span-2 glass-tile p-8 group flex flex-col cursor-pointer"
+          style={{ background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)' }}
+        >
+          <div className="mb-8">
+            <div className="font-inter text-[10px] tracking-[0.4em] text-blue-500 font-black uppercase mb-4">Surface Optimization</div>
+            <h3 className="text-3xl font-black text-slate-900 tracking-tighter mb-4 leading-tight">
+              {cards[1].title}
+            </h3>
+            <p className="text-slate-500 font-medium text-sm leading-relaxed">
+              {cards[1].description}
+            </p>
+          </div>
+
+          <div className="flex-1 mb-8 overflow-hidden rounded-2xl border border-slate-100 shadow-inner p-2 bg-slate-50">
+             <div className="h-full transform group-hover:-translate-y-2 transition-transform duration-500">
+               {cards[1].visual}
+               <div className="space-y-2 mt-4 opacity-40">
+                  <div className="h-2 w-full bg-slate-200 rounded" />
+                  <div className="h-2 w-3/4 bg-slate-200 rounded" />
+                  <div className="h-2 w-5/6 bg-slate-200 rounded" />
+               </div>
+             </div>
+          </div>
+
+          <div className="hover-reveal">
+             <div 
+               onClick={scrollToContact}
+               className="p-4 rounded-xl bg-blue-600 text-white text-xs font-bold flex items-center justify-between cursor-pointer"
+             >
+                <span>View Performance Score</span>
+                <ArrowRight size={16} />
+             </div>
+          </div>
+        </motion.div>
+
+        {/* Card 3: Growth - Wide (Col 1-12) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="md:col-span-12 md:row-span-1 glass-tile p-8 md:px-12 group flex flex-col md:flex-row items-center gap-10"
+        >
+          <div className="flex-1">
+            <div className="font-inter text-[10px] tracking-[0.4em] text-blue-500 font-black uppercase mb-4">Acquisition Engine</div>
+            <h3 className="text-3xl font-black text-slate-900 tracking-tighter mb-4 leading-none">
+              {cards[2].title}
+            </h3>
+            <p className="text-slate-500 font-medium text-sm leading-relaxed max-w-xl">
+              {cards[2].description}
+            </p>
+          </div>
+          
+          <div className="w-full md:w-1/3">
+             {cards[2].visual}
+          </div>
+
+          <button 
+            onClick={scrollToContact}
+            className="px-8 py-4 bg-slate-900 text-white font-black rounded-xl hover:bg-blue-600 transition-all flex items-center gap-2 text-xs uppercase tracking-widest"
+          >
+            Scaling Strategy <ArrowRight size={16} />
+          </button>
+        </motion.div>
       </div>
     </div>
   );

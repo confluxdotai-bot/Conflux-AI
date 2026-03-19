@@ -29,7 +29,7 @@ const AnswerBox: React.FC<AnswerBoxProps> = ({ question, answer, listItems, dela
       <div className="absolute top-0 right-0 w-32 h-32 opacity-10 pointer-events-none"
         style={{ background: 'radial-gradient(circle at top right, rgba(0, 0, 255, 1), transparent 70%)' }} />
       
-      <div className="p-6 md:p-10 relative z-10">
+      <article className="p-6 md:p-10 relative z-10">
         <div className="flex items-start gap-4 mb-6">
           <div className="mt-1 p-2 rounded-lg bg-blue-600/10 border border-blue-500/20 text-blue-500">
             <HelpCircle size={24} />
@@ -61,7 +61,7 @@ const AnswerBox: React.FC<AnswerBoxProps> = ({ question, answer, listItems, dela
             ))}
           </ul>
         </div>
-      </div>
+      </article>
 
       {/* Structured Data hint for Google (visual only, actual schema in index.html) */}
       <div className="absolute bottom-4 right-6 flex items-center gap-2">

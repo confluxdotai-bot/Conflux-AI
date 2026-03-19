@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Mail, User, Building2, Briefcase, CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { supabase } from '../lib/supabase';
 
 const ContactForm: React.FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -24,7 +25,26 @@ const ContactForm: React.FC = () => {
     setStatus('processing');
 
     try {
-      // EmailJS configuration
+      // 1. Save to Supabase
+      const { error: supabaseError } = await supabase
+        .from('leads')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            company: formData.company,
+            goal: formData.goal,
+            message: formData.message,
+            created_at: new Date().toISOString(),
+          }
+        ]);
+
+      if (supabaseError) {
+        console.warn('Supabase insertion failed (possibly table not created yet):', supabaseError.message);
+      }
+
+      // 2. EmailJS notification
       await emailjs.send(
         'service_confluxai',      // EmailJS Service ID
         'template_confluxai',     // EmailJS Template ID

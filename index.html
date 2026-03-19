@@ -97,27 +97,58 @@
   }
   </script>
 
+  <!-- 2026 GEO: BreadcrumbList for Site Hierarchy -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How can an AI Chatbot help my business grow?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "A custom AI Chatbot is like a super-fast assistant that works 24/7. It talks to your website visitors, answers their questions immediately, and books meetings for you even while you sleep. Most businesses find they can capture 50% more customers because no one has to wait for a reply."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How does Smart Automation make my work easier?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Smart automation handles all the boring, repetitive tasks for you. Instead of typing data manually or moving files between apps, everything happens automatically and perfectly every time. This saves you hours of work every week and stops simple mistakes before they happen."
-        }
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://confluxai.in/"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Services",
+      "item": "https://confluxai.in/#infrastructure"
+    },{
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Creative Suite",
+      "item": "https://confluxai.in/#creative"
+    }]
+  }
+  </script>
+
+  <!-- Performance: Speculative Prefetching for INP 2026 -->
+  <script>
+    document.addEventListener('mouseover', (e) => {
+      const link = e.target.closest('a');
+      if (link && link.href && link.origin === window.location.origin) {
+        const prefetchLink = document.createElement('link');
+        prefetchLink.rel = 'prefetch';
+        prefetchLink.href = link.href;
+        document.head.appendChild(prefetchLink);
       }
+    }, { passive: true });
+  </script>
+
+  <!-- 2026 GEO: Information Gain / Dataset Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "Conflux Live B2B Growth Report 2026",
+    "description": "Original first-party data on AI implementation success rates for businesses in West Bengal and beyond.",
+    "creator": {
+      "@type": "Organization",
+      "name": "Conflux AI"
+    },
+    "variableMeasured": [
+       "Lead Increase (%)",
+       "Manual Task Reduction (Hours)",
+       "Customer Satisfaction Rate (%)"
     ]
   }
   </script>

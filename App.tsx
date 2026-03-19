@@ -12,6 +12,14 @@ import Founders from './components/Founders.tsx';
 import ContactForm from './components/ContactForm.tsx';
 import BrandingControl from './components/BrandingControl.tsx';
 import Chatbot from './components/Chatbot.tsx';
+import DataVault from './components/DataVault.tsx';
+import AuthoritySignals from './components/AuthoritySignals.tsx';
+import VoiceFAQ from './components/VoiceFAQ.tsx';
+import SemanticMap from './components/SemanticMap.tsx';
+import CreativeSuite from './components/CreativeSuite.tsx';
+import SocialImpact from './components/SocialImpact.tsx';
+import BlueprintVault from './components/BlueprintVault.tsx';
+import VideoTrust from './components/VideoTrust.tsx';
 
 const App: React.FC = () => {
   const { scrollYProgress } = useScroll();
@@ -62,10 +70,27 @@ const App: React.FC = () => {
           <InfrastructureSuite />
         </section>
 
+        {/* 2026 Engagement: Digital Creative Suite */}
+        <section id="creative-suite" className="py-24 relative bg-[#f8fafc]">
+          <CreativeSuite />
+        </section>
+
+        {/* 2026 Engagement: Social Impact & Reach */}
+        <SocialImpact />
+
+        {/* 2026 Engagement: The Blueprint Vault */}
+        <BlueprintVault />
+
+        {/* 2026 GEO: Data Vault */}
+        <DataVault />
+
         {/* LIGHT SECTION 2: Impact */}
         <section id="impact" className="py-24 relative" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid rgba(15,23,42,0.04)', borderBottom: '1px solid rgba(15,23,42,0.04)' }}>
           <TrustEngine />
         </section>
+
+        {/* 2026 GEO: Semantic Connectivity Cluster */}
+        <SemanticMap />
 
         {/* DARK SECTION 2: AI Core */}
         <section id="ai-core" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24 relative overflow-hidden" style={{ backgroundColor: '#020c1b' }}>
@@ -84,10 +109,19 @@ const App: React.FC = () => {
           <Reviews />
         </section>
 
+        {/* 2026 Engagement: Authority Signals */}
+        <AuthoritySignals />
+
         {/* LIGHT SECTION 5: Founders */}
         <section id="founders" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24 relative" style={{ backgroundColor: '#ffffff', borderTop: '1px solid rgba(15,23,42,0.04)' }}>
           <Founders />
         </section>
+
+        {/* 2026 Engagement: Video Trust Showcase */}
+        <VideoTrust />
+
+        {/* 2026 GEO: Conversational Solution Engine */}
+        <VoiceFAQ />
 
         {/* DARK SECTION 3: Contact */}
         <section id="contact" className="py-24 px-4 sm:px-6 md:px-12 lg:px-24 relative overflow-hidden" style={{ backgroundColor: '#020c1b' }}>
