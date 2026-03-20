@@ -20,6 +20,7 @@ import CreativeSuite from './components/CreativeSuite.tsx';
 import SocialImpact from './components/SocialImpact.tsx';
 import BlueprintVault from './components/BlueprintVault.tsx';
 import VideoTrust from './components/VideoTrust.tsx';
+import GEOPowerhouse from './components/GEOPowerhouse.tsx';
 
 const App: React.FC = () => {
   const { scrollYProgress } = useScroll();
@@ -119,6 +120,9 @@ const App: React.FC = () => {
 
         {/* 2026 Engagement: Video Trust Showcase */}
         <VideoTrust />
+
+        {/* 2026 Engagement: GEO Powerhouse (AI Citations) */}
+        <GEOPowerhouse />
 
         {/* 2026 GEO: Conversational Solution Engine */}
         <VoiceFAQ />
