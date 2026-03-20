@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, BookOpen } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 interface NavbarProps {
   customLogo?: string | null;
@@ -9,6 +10,8 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ customLogo }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -18,16 +21,21 @@ const Navbar: React.FC<NavbarProps> = ({ customLogo }) => {
 
   const navItems = [
     { name: 'Services', id: 'infrastructure' },
+    { name: 'Articles', path: '/articles', isLink: true },
     { name: 'Impact', id: 'impact' },
     { name: 'AI Core', id: 'ai-core' },
-    { name: 'Projects', id: 'projects' },
     { name: 'Team', id: 'founders' },
-    { name: 'Reviews', id: 'reviews' },
   ];
 
   const scrollToSection = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
+    
+    if (pathname !== '/') {
+        navigate('/#' + id);
+        return;
+    }
+
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -78,19 +86,29 @@ const Navbar: React.FC<NavbarProps> = ({ customLogo }) => {
           )}
         </div>
 
-        {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={(e) => scrollToSection(e, item.id)}
-              className="text-[13px] font-inter font-semibold tracking-wide transition-all duration-200 bg-transparent border-none uppercase hover:scale-105"
-              style={{ color: '#475569' }}
-              onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.color = navyColor}
-              onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.color = '#475569'}
-            >
-              {item.name}
-            </button>
+            item.isLink ? (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="text-[13px] font-inter font-semibold tracking-wide transition-all duration-200 uppercase hover:scale-105"
+                style={{ color: pathname === item.path ? navyColor : '#475569' }}
+              >
+                {item.name}
+              </Link>
+            ) : (
+              <button
+                key={item.id}
+                onClick={(e) => scrollToSection(e, item.id || '')}
+                className="text-[13px] font-inter font-semibold tracking-wide transition-all duration-200 bg-transparent border-none uppercase hover:scale-105"
+                style={{ color: '#475569' }}
+                onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.color = navyColor}
+                onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.color = '#475569'}
+              >
+                {item.name}
+              </button>
+            )
           ))}
         </div>
 
